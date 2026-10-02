@@ -3,7 +3,7 @@
 This is the companion to my talk *Protocols are Systems: Implications for a Grand Unified Protocol Modeling Theory*, given at Protocol Symposium 2026 on September 24, 2026, in response to the Protocol Institute's Grand Challenge 55.
 
 - Slides: [slides.pdf](slides.pdf), 21 slides
-- Lean proofs of the three protocol results: [lean/](REPO/tree/main/lean)
+- Lean proofs of the three protocol results: [lean/](https://github.com/halcyonic-systems/protocols-are-systems-talk/tree/main/lean)
 - The systems core these results build on: [systems-science-foundations](https://github.com/halcyonic-systems/systems-science-foundations)
 
 In this work an arrow always means "depends on."
@@ -24,15 +24,15 @@ In this work an arrow always means "depends on."
 | The two-object arrow embeds into each of eight definitions (Klir, Bunge, Mobus, Mesarović, Wymore, Myers, Joslyn, Spivak), injective on objects. | Proved | [Challenge.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Challenge.lean), `klirTo*_obj_injective` |
 | Any connected pattern that embeds in both the Joslyn and the Willems shapes is exactly one arrow. This holds relative to the encoded presentations. Willems serves as a witness and is not one of the eight. | Proved | [SharedPrimitive.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Category/SharedPrimitive.lean), `connected_is_single_arrow` |
 | "Nothing larger is shared," when the definitions are compared as free categories. | False. A three-object fork embeds into all eight. | [Challenge.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Challenge.lean), `free_category_maximality_fails` |
-| Hand washing: under the rule "wash every N contacts" (N = 3 in the model), a contamination counter that starts at or below N never exceeds N. The model is coarse (hands and the rule, against contact surfaces and microbes) and assumes the rule is followed. | Proved | [HandWashing.lean](REPO/blob/main/lean/Protocols/HandWashing.lean), `handwashing_contamination_bounded` |
-| TCP and HTTP: two disjoint layers joined by one bond compose into an organized system. Each layer is modeled as closed. | Proved | [TCPIP.lean](REPO/blob/main/lean/Protocols/TCPIP.lean), `stack_organized` |
-| Bitcoin: a 10-minute block interval is a fixed point of the difficulty feedback law. The model is an idealized one-step version of the 2016-block retarget. | Proved | [Bitcoin.lean](REPO/blob/main/lean/Protocols/Bitcoin.lean), `difficulty_target_is_equilibrium` |
+| Hand washing: under the rule "wash every N contacts" (N = 3 in the model), a contamination counter that starts at or below N never exceeds N. The model is coarse (hands and the rule, against contact surfaces and microbes) and assumes the rule is followed. | Proved | [HandWashing.lean](https://github.com/halcyonic-systems/protocols-are-systems-talk/blob/main/lean/Protocols/HandWashing.lean), `handwashing_contamination_bounded` |
+| TCP and HTTP: two disjoint layers joined by one bond compose into an organized system. Each layer is modeled as closed. | Proved | [TCPIP.lean](https://github.com/halcyonic-systems/protocols-are-systems-talk/blob/main/lean/Protocols/TCPIP.lean), `stack_organized` |
+| Bitcoin: a 10-minute block interval is a fixed point of the difficulty feedback law. The model is an idealized one-step version of the 2016-block retarget. | Proved | [Bitcoin.lean](https://github.com/halcyonic-systems/protocols-are-systems-talk/blob/main/lean/Protocols/Bitcoin.lean), `difficulty_target_is_equilibrium` |
 | Four protocol formalisms share the hand-washing skeleton. | Sketch | [slides.pdf](slides.pdf), slide 13 |
 | Nostr fits the model, and its hardness sits at a relay that keeps a copy. | Drawn, not formalized | [slides.pdf](slides.pdf), slide 17 |
 
 ## How to read a Lean theorem
 
-The hand-washing result, as it appears in [HandWashing.lean](REPO/blob/main/lean/Protocols/HandWashing.lean):
+The hand-washing result, as it appears in [HandWashing.lean](https://github.com/halcyonic-systems/protocols-are-systems-talk/blob/main/lean/Protocols/HandWashing.lean):
 
 ```lean
 theorem handwashing_contamination_bounded (n c : ℕ)
