@@ -52,13 +52,21 @@ theorem handwashing_contamination_bounded (n c : ℕ)
 
 **Can arrows go both ways directly, or is the return path mediated through something else?**
 
-Neither is part of the shared core. A direct pair x → y → x and a mediated return x → y → z → x both contain two arrows in a row. The Willems shape has no two arrows in a row (`no_two_chain`), so neither pattern embeds there, and the shared core stays one arrow in one direction. Feedback is real. It enters with the richer definitions, for example Mobus's flow networks.
+What all eight definitions share is two things and one dependency between them. If A depends on B, then for B to depend on A you need a way back: an arrow from B to A, or a detour from B through C to A. Either way you follow one arrow and then another. Willems's definition, as encoded, never has two arrows in a row, so no way back fits inside it, and the shared floor stays one arrow in one direction (`connected_is_single_arrow`, `no_two_chain`).
 
-One definition demands the opposite. Rosen (1978), encoded separately from the eight, requires the dependency to be symmetric. A kernel in which something depends on another thing without the converse has no Rosen view (`rosen_no_view_of_asymmetric`, [ViewGeneration.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Klir/ViewGeneration.lean)).
+Two-way dependency is real and appears in the definitions themselves. Joslyn's encoded shape has one: the effector acts on the controlled variable, and the controlled variable feeds back to the effector. It is just not shared by every definition. This is a result about the definitions as encoded, not a claim that feedback can never belong at the floor. Willems's interconnection layer, for one, is not encoded yet.
+
+Rosen marks an outer edge. His 1978 definition relates states by whether every observable agrees on them, a relation that always runs both ways. A one-way dependency has no Rosen counterpart at all (`rosen_no_view_of_asymmetric`, [ViewGeneration.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Klir/ViewGeneration.lean)), so his definition sits outside the floor.
 
 **Can the richer formalisms, with time and environment, be built from the primitive?**
 
-Partly, and that part is proved. [ViewGeneration.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Klir/ViewGeneration.lean) generates each tradition's view from the kernel: the things, the relations, and the dependency between them. Each generated view projects back to the same kernel, and distinct kernels give distinct views. Each view has a price:
+In plain terms: dependency can hold places for time and environment, but it cannot fill them.
+
+*Can time and environment be derived from dependency alone?* No. When the kernel generates a richer view, the time and environment slots come out empty, and the generated energy view is provably static. Real time and real environment are content supplied from outside.
+
+*Can time and environment be represented as things in the dependency graph?* Yes. Willems encodes time as a position that behavior depends on (`indexed_by`, [ShapeWillems.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Category/ShapeWillems.lean)). Environment is things outside the boundary that inside things depend on.
+
+The details, all proved: [ViewGeneration.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Klir/ViewGeneration.lean) generates each tradition's view from the kernel: the things, the relations, and the dependency between them. Each generated view projects back to the same kernel, and distinct kernels give distinct views. Each view has a price:
 
 - Klir: free.
 - Bunge: at least one bonded pair of distinct things.
