@@ -8,6 +8,8 @@ This is the companion to my talk *Protocols are Systems: Implications for a Gran
 
 In this work an arrow always means "depends on."
 
+From the symposium session? Jump to [Questions from the session](#questions-from-the-session).
+
 ## The argument
 
 1. Klir defines a system as things and the relations between them, S = (T, R). A protocol is a set of participants (T) and a set of rules that constrain them (R). So a protocol is a system in Klir's sense.
@@ -19,16 +21,16 @@ In this work an arrow always means "depends on."
 
 ## What is proved, and where
 
-| Claim | Status | Source |
-|---|---|---|
-| The two-object arrow embeds into each of eight definitions (Klir, Bunge, Mobus, Mesarović, Wymore, Myers, Joslyn, Spivak), injective on objects. | Proved | [Challenge.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Challenge.lean), `klirTo*_obj_injective` |
-| Any connected pattern that embeds in both the Joslyn and the Willems shapes is exactly one arrow. This holds relative to the encoded presentations. Willems serves as a witness and is not one of the eight. | Proved | [SharedPrimitive.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Category/SharedPrimitive.lean), `connected_is_single_arrow` |
-| "Nothing larger is shared," when the definitions are compared as free categories. | False. A three-object fork embeds into all eight. | [Challenge.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Challenge.lean), `free_category_maximality_fails` |
-| Hand washing: under the rule "wash every N contacts" (N = 3 in the model), a contamination counter that starts at or below N never exceeds N. The model is coarse (hands and the rule, against contact surfaces and microbes) and assumes the rule is followed. | Proved | [HandWashing.lean](https://github.com/halcyonic-systems/protocols-are-systems-talk/blob/main/lean/Protocols/HandWashing.lean), `handwashing_contamination_bounded` |
-| TCP and HTTP: two disjoint layers joined by one bond compose into an organized system. Each layer is modeled as closed. | Proved | [TCPIP.lean](https://github.com/halcyonic-systems/protocols-are-systems-talk/blob/main/lean/Protocols/TCPIP.lean), `stack_organized` |
-| Bitcoin: a 10-minute block interval is a fixed point of the difficulty feedback law. The model is an idealized one-step version of the 2016-block retarget. | Proved | [Bitcoin.lean](https://github.com/halcyonic-systems/protocols-are-systems-talk/blob/main/lean/Protocols/Bitcoin.lean), `difficulty_target_is_equilibrium` |
-| Four protocol formalisms share the hand-washing skeleton. | Sketch | [slides.pdf](slides.pdf), slide 13 |
-| Nostr fits the model, and its hardness sits at a relay that keeps a copy. | Drawn, not formalized | [slides.pdf](slides.pdf), slide 17 |
+| Claim | Status | Model limits | Source |
+|---|---|---|---|
+| The two-object arrow embeds into each of eight definitions: Klir, Bunge, Mobus, Mesarović, Wymore, Myers, Joslyn, Spivak. | Proved | Injective on objects. | [Challenge.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Challenge.lean), `klirTo*_obj_injective` |
+| Any connected pattern that embeds in both the Joslyn and the Willems shapes is exactly one arrow. | Proved | Relative to the encoded presentations. Willems is a witness, not one of the eight. | [SharedPrimitive.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Category/SharedPrimitive.lean), `connected_is_single_arrow` |
+| "Nothing larger is shared." | False | Fails when definitions are compared as free categories: a three-object fork embeds into all eight. | [Challenge.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Challenge.lean), `free_category_maximality_fails` |
+| Hand washing: under "wash every N contacts," a counter starting at or below N never exceeds N. | Proved | N = 3. Coarse model (hands and the rule, against surfaces and microbes). Assumes the rule is followed. | [HandWashing.lean](https://github.com/halcyonic-systems/protocols-are-systems-talk/blob/main/lean/Protocols/HandWashing.lean), `handwashing_contamination_bounded` |
+| TCP and HTTP: two layers joined by one bond compose into an organized system. | Proved | Each layer modeled as closed. | [TCPIP.lean](https://github.com/halcyonic-systems/protocols-are-systems-talk/blob/main/lean/Protocols/TCPIP.lean), `stack_organized` |
+| Bitcoin: a 10-minute block interval is a fixed point of the difficulty feedback law. | Proved | Idealized one-step version of the 2016-block retarget. | [Bitcoin.lean](https://github.com/halcyonic-systems/protocols-are-systems-talk/blob/main/lean/Protocols/Bitcoin.lean), `difficulty_target_is_equilibrium` |
+| Four protocol formalisms share the hand-washing skeleton. | Sketch | Not formalized. | [slides.pdf](slides.pdf), slide 13 |
+| Nostr fits the model, and its hardness sits at a relay that keeps a copy. | Drawn | Not formalized. | [slides.pdf](slides.pdf), slide 17 |
 
 ## How to read a Lean theorem
 
@@ -50,40 +52,56 @@ theorem handwashing_contamination_bounded (n c : ℕ)
 
 ## Questions from the session
 
-**Can arrows go both ways directly, or is the return path mediated through something else?**
+### Can arrows go both ways, directly or through something in between?
+
+> No, not in the shared core. What every definition shares is one arrow in one direction. Two-way dependency exists in some definitions, Joslyn's for one, but not in all of them.
+
+<details markdown="1">
+<summary>Details</summary>
 
 What all eight definitions share is two things and one dependency between them. If A depends on B, then for B to depend on A you need a way back: an arrow from B to A, or a detour from B through C to A. Either way you follow one arrow and then another. Willems's definition, as encoded, never has two arrows in a row, so no way back fits inside it, and the shared floor stays one arrow in one direction (`connected_is_single_arrow`, `no_two_chain`).
 
-Two-way dependency is real and appears in the definitions themselves. Joslyn's encoded shape has one: the effector acts on the controlled variable, and the controlled variable feeds back to the effector. It is just not shared by every definition. This is a result about the definitions as encoded, not a claim that feedback can never belong at the floor. Willems's interconnection layer, for one, is not encoded yet.
+Joslyn's encoded shape has a two-way pair: the effector acts on the controlled variable, and the controlled variable feeds back to the effector. This is a result about the definitions as encoded, not a claim that feedback can never belong at the floor. Willems's interconnection layer, for one, is not encoded yet.
 
 Rosen marks an outer edge. His 1978 definition relates states by whether every observable agrees on them, a relation that always runs both ways. A one-way dependency has no Rosen counterpart at all (`rosen_no_view_of_asymmetric`, [ViewGeneration.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Klir/ViewGeneration.lean)), so his definition sits outside the floor.
 
-**Can the richer formalisms, with time and environment, be built from the primitive?**
+</details>
 
-In plain terms: dependency can hold places for time and environment, but it cannot fill them.
+### Can time and environment be built from the primitive?
 
-*Can time and environment be derived from dependency alone?* No. When the kernel generates a richer view, the time and environment slots come out empty, and the generated energy view is provably static. Real time and real environment are content supplied from outside.
+> Dependency can hold places for time and environment, but it cannot fill them.
 
-*Can time and environment be represented as things in the dependency graph?* Yes. Willems encodes time as a position that behavior depends on (`indexed_by`, [ShapeWillems.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Category/ShapeWillems.lean)). Environment is things outside the boundary that inside things depend on.
+*Derived from dependency alone?* No. When the kernel generates a richer view, the time and environment slots come out empty, and the generated energy view is provably static. Real time and real environment are content supplied from outside.
 
-The details, all proved: [ViewGeneration.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Klir/ViewGeneration.lean) generates each tradition's view from the kernel: the things, the relations, and the dependency between them. Each generated view projects back to the same kernel, and distinct kernels give distinct views. Each view has a price:
+*Represented as things in the dependency graph?* Yes. Willems encodes time as a position that behavior depends on (`indexed_by`, [ShapeWillems.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Category/ShapeWillems.lean)). Environment is things outside the boundary that inside things depend on.
+
+<details markdown="1">
+<summary>Details</summary>
+
+[ViewGeneration.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Klir/ViewGeneration.lean) generates each tradition's view from the kernel: the things, the relations, and the dependency between them. Each generated view projects back to the same kernel, and distinct kernels give distinct views. Each view has a price:
 
 - Klir: free.
 - Bunge: at least one bonded pair of distinct things.
 - Mobus: nothing depends on itself.
 - Rosen: the dependency is an equivalence.
 
-The generated views fill environment, external flows, boundary, history, and timescale with empty or trivial values. Time and environment are slots the kernel does not supply. Spivak's energy-driven view always exists but is provably static (`Kernel.toSpivak_static`, [SpivakSystem.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Klir/SpivakSystem.lean)), so motion needs value data from outside the kernel. Generating non-trivial time and environment content is open.
+The generated views fill environment, external flows, boundary, history, and timescale with empty or trivial values. Spivak's energy-driven view always exists but is provably static (`Kernel.toSpivak_static`, [SpivakSystem.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Klir/SpivakSystem.lean)), so motion needs value data from outside the kernel. Generating non-trivial time and environment content is open.
 
-**On reading arrows as time**
+</details>
 
-Read as temporal links, two-way arrows raise hard questions of causality and simultaneity. Here an arrow is dependency, not temporal order. [ShapeWillems.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Category/ShapeWillems.lean) states it as "`dep_on` is predication, not causation." Time is a separate slot (Mobus's history and timescale).
+### On reading arrows as time
 
-**Where to start with Lean?**
+> Here an arrow means "depends on," not "comes before."
 
-[Challenge.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Challenge.lean) restates every headline claim with its full type, so a reader can check the result without reading the proofs. For learning Lean: [Mathematics in Lean](https://leanprover-community.github.io/mathematics_in_lean/).
+Read as temporal links, two-way arrows raise hard questions of causality and simultaneity. [ShapeWillems.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Category/ShapeWillems.lean) states the convention as "`dep_on` is predication, not causation." Time is a separate slot (Mobus's history and timescale).
 
-**Pointers from the session, not yet engaged**
+### Where to start with Lean?
+
+> Read [Challenge.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Challenge.lean). It states every claim without the proofs.
+
+Each headline claim appears there with its full type, so a reader can check the result without reading the proofs. For learning Lean: [Mathematics in Lean](https://leanprover-community.github.io/mathematics_in_lean/).
+
+### Pointers from the session, not yet engaged
 
 - HyperLTL and hyperproperties, which state properties across runs and so can describe how a system or metasystem evolves.
 - Milner's formalisms.
