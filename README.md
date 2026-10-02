@@ -1,6 +1,6 @@
 # Protocols are systems
 
-This is the companion to *Protocols are Systems: Implications for a Grand Unified Protocol Modeling Theory*, a talk Shingai Thornton gave at Protocol Symposium 2026 on September 24, 2026, in response to the Protocol Institute's Grand Challenge 55.
+This is the companion to my talk *Protocols are Systems: Implications for a Grand Unified Protocol Modeling Theory*, given at Protocol Symposium 2026 on September 24, 2026, in response to the Protocol Institute's Grand Challenge 55.
 
 - Slides: [slides.pdf](slides.pdf), 21 slides
 - Lean proofs of the three protocol results: [lean/](REPO/tree/main/lean)
@@ -30,6 +30,24 @@ In this work an arrow always means "depends on."
 | Four protocol formalisms share the hand-washing skeleton. | Sketch | [slides.pdf](slides.pdf), slide 13 |
 | Nostr fits the model, and its hardness sits at a relay that keeps a copy. | Drawn, not formalized | [slides.pdf](slides.pdf), slide 17 |
 
+## How to read a Lean theorem
+
+The hand-washing result, as it appears in [HandWashing.lean](REPO/blob/main/lean/Protocols/HandWashing.lean):
+
+```lean
+theorem handwashing_contamination_bounded (n c : ℕ)
+    (hsafe : c ≤ sanitizePeriod) :
+    contaminationStep^[n] c ≤ sanitizePeriod
+```
+
+- `theorem handwashing_contamination_bounded` names a claim.
+- `(n c : ℕ)` says the claim holds for any whole numbers `n`, the number of steps taken, and `c`, the starting count.
+- `(hsafe : c ≤ sanitizePeriod)` is the assumption: the count starts at or below N.
+- After the last colon comes the conclusion. Applying one step of the protocol `n` times (`^[n]`) leaves the count at or below N.
+- The proof follows in the file. Lean rejects the file unless every step of the proof checks.
+- `sorry` marks a gap in a proof. None of these files contain one.
+- `#print axioms` lists what a proof rests on. Here it is only Lean's standard axioms.
+
 ## Questions from the session
 
 **Can arrows go both ways directly, or is the return path mediated through something else?**
@@ -49,9 +67,9 @@ Partly, and that part is proved. [ViewGeneration.lean](https://github.com/halcyo
 
 The generated views fill environment, external flows, boundary, history, and timescale with empty or trivial values. Time and environment are slots the kernel does not supply. Spivak's energy-driven view always exists but is provably static (`Kernel.toSpivak_static`, [SpivakSystem.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Klir/SpivakSystem.lean)), so motion needs value data from outside the kernel. Generating non-trivial time and environment content is open.
 
-**Read as time, do two-way arrows raise questions of causality and simultaneity?**
+**On reading arrows as time**
 
-Yes, under a temporal reading. Here an arrow is dependency, not temporal order. [ShapeWillems.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Category/ShapeWillems.lean) states it as "`dep_on` is predication, not causation." Time is a separate slot (Mobus's history and timescale).
+Read as temporal links, two-way arrows raise hard questions of causality and simultaneity. Here an arrow is dependency, not temporal order. [ShapeWillems.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Category/ShapeWillems.lean) states it as "`dep_on` is predication, not causation." Time is a separate slot (Mobus's history and timescale).
 
 **Where to start with Lean?**
 
