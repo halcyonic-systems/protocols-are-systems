@@ -9,3 +9,4 @@ blueprint/print/
 blueprint/web/
 lean/.lake/
 vendor/
+blueprint/src/*.paux
