@@ -10,4 +10,4 @@ description: Protocols are Systems, Protocol Symposium 2026, September 24, 2026.
 
 - [Slides (PDF, 21 slides)]({{ '/slides.pdf' | relative_url }})
 
-Since the talk, the statement of the shared arrow has been sharpened. Slide 11 drew it between things. The proved statement is between the parts of a definition. See [The core]({{ '/core/' | relative_url }}).
+Since the talk, the statement of the shared arrow has been sharpened. Slide 11 drew it between things. The proved statement is between the parts of a definition. See [Chapter 1 of the blueprint]({{ '/blueprint/sect0001.html' | relative_url }}).

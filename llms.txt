@@ -1,9 +1,10 @@
 # Protocols are systems
 
-> What a protocol is, stated over formal definitions of system, with the proofs in Lean. Each page is a markdown file in https://github.com/halcyonic-systems/protocols-are-systems.
+> A protocol is a relation over roles, so a protocol is where a system's systemhood lives. Source: https://github.com/halcyonic-systems/protocols-are-systems
 
-- [The core](https://halcyonic.systems/protocols-are-systems/core/): a system's relation is defined over its things, and a protocol is the rules, where systemhood lives. Sources: Klir 2001 p. 5, Walch 2023 p. 3, systems-science-foundations.
-- [Instances](https://halcyonic.systems/protocols-are-systems/instances/): three protocols formalized in Lean (hand washing, TCP and HTTP, Bitcoin), one theorem each, with model limits.
-- [Questions](https://halcyonic.systems/protocols-are-systems/questions/): questions from Protocol Symposium 2026 and the October 2, 2026 SIGFPT session, each with a one-line answer.
+- [Blueprint](https://halcyonic.systems/protocols-are-systems/blueprint/): definitions, theorems, and open problems, each linked to its Lean declaration. LaTeX source in blueprint/src/content.tex.
+- [Blueprint PDF](https://halcyonic.systems/protocols-are-systems/blueprint.pdf)
+- [Dependency graph](https://halcyonic.systems/protocols-are-systems/blueprint/dep_graph_document.html)
+- [Questions](https://halcyonic.systems/protocols-are-systems/questions/): questions from Protocol Symposium 2026 and SIGFPT, each with a one-line answer.
 - [Talk](https://halcyonic.systems/protocols-are-systems/talk/): slides from the September 24, 2026 talk.
-- [Lean sources](https://github.com/halcyonic-systems/protocols-are-systems/tree/main/lean)
+- [Lean sources](https://github.com/halcyonic-systems/protocols-are-systems/tree/main/Protocols)

@@ -5,53 +5,52 @@ title: Protocols are systems
 
 # Protocols are systems
 
-A protocol is a set of rules. In formal definitions of system, rules are relations, and the relation is where a system's systemhood lives. Defined over its participants, a protocol forms a system. This site states that claim precisely, gives the proofs that support it in Lean, and records the questions it has met.
+<p class="subtitle">A protocol is a relation over roles, so a protocol is where a system's systemhood lives.</p>
 
-<div class="box definition" markdown="1">
-<p class="box-label">The floor, in one line</p>
+<p class="links">
+<a href="{{ '/blueprint/' | relative_url }}">Blueprint</a><span class="sep">|</span><a href="{{ '/blueprint.pdf' | relative_url }}">PDF</a><span class="sep">|</span><a href="{{ '/blueprint/dep_graph_document.html' | relative_url }}">Dependency graph</a><span class="sep">|</span><a href="https://github.com/halcyonic-systems/protocols-are-systems">Lean source</a><span class="sep">|</span><a href="{{ '/questions/' | relative_url }}">Questions</a><span class="sep">|</span><a href="{{ '/talk/' | relative_url }}">Talk</a>
+</p>
 
-$$
-S = (T, R), \qquad R \subseteq T \times T, \qquad R \xrightarrow{\ \text{is defined over}\ } T
-$$
+<figure>
+<svg viewBox="0 0 300 70" role="img" aria-label="R, an arrow labeled is defined over, T">
+  <text x="30" y="44" text-anchor="middle" font-family="Computer Modern Serif, serif" font-style="italic" font-size="24" fill="#1b1b1b">R</text>
+  <line x1="52" y1="37" x2="240" y2="37" stroke="#1b1b1b" stroke-width="1"/>
+  <polyline points="232,32 241,37 232,42" fill="none" stroke="#1b1b1b" stroke-width="1"/>
+  <text x="146" y="27" text-anchor="middle" font-family="Computer Modern Serif, serif" font-size="13" fill="#6b6b6b">is defined over</text>
+  <text x="264" y="44" text-anchor="middle" font-family="Computer Modern Serif, serif" font-style="italic" font-size="24" fill="#1b1b1b">T</text>
+</svg>
+<figcaption>The one arrow shared by eight formal definitions of system.</figcaption>
+</figure>
 
-A system's relation is defined over its things. A protocol is the relation, the rules, so it is where systemhood lives.
+Klir defines a system as a set of things \\(T\\) and a relation \\(R \subseteq T \times T\\). The relation cannot be stated without the things, and that dependence is the one arrow every definition shares. A protocol is rules, and rules are relations, so a protocol is the part of a system where systemhood resides. This project states that claim precisely, proves what can be proved in Lean, and keeps the rest as open problems.
 
-</div>
+<p class="status">24 statements · 16 formalized in Lean · 6 open problems</p>
 
-**Start here:** [The core]({{ '/core/' | relative_url }}).
+## Contents
 
-## The argument
+- [Blueprint]({{ '/blueprint/' | relative_url }}). Definitions, theorems, and open problems, each linked to its Lean declaration. Also as a [PDF]({{ '/blueprint.pdf' | relative_url }}).
+- [Dependency graph]({{ '/blueprint/dep_graph_document.html' | relative_url }}). What is proved, what is stated, and what is open.
+- [Questions]({{ '/questions/' | relative_url }}). Questions raised at Protocol Symposium 2026 and at SIGFPT, with short answers.
+- [Talk]({{ '/talk/' | relative_url }}). *Protocols are Systems*, Protocol Symposium 2026, September 24, 2026.
 
-1. Klir defines a system as things and a relation on them, \\(S = (T, R)\\). A protocol is rules, and rules are relations. Defined over its participants, a protocol forms a system.
-2. Hand washing, modeled three ways, shows what each definition adds. Klir gives things and relations. Bunge adds inside, outside, and a mechanism. Mobus adds a boundary, flows, a history, and a clock.
-3. Eight formal definitions of system share one arrow: the relation is defined over the things.
-4. A state machine, a process calculus, a temporal logic, and a Petri net can each be drawn over the same four-state hand-washing skeleton. This is a sketch, not a proof.
-5. Three protocols are formalized in Lean, with one theorem each.
-6. Nostr fits the same model without changes, and drawing its dependencies shows where its hardness lives.
+## Contributing
 
-## What is proved, and where
+Discussion takes place in SIGFPT, the formal protocol theory group of the Protocol Institute. Issues and pull requests are welcome on [GitHub](https://github.com/halcyonic-systems/protocols-are-systems). The open problems in the blueprint are the natural places to start.
 
-| Claim | Status | Model limits | Source |
-|---|---|---|---|
-| Klir's shape (relation defined over things) embeds into each of eight definitions: Klir, Bunge, Mobus, Mesarović, Wymore, Myers, Joslyn, Spivak. | <span class="badge proved">Proved</span> | Injective on objects. | [Challenge.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Challenge.lean), `klirTo*_obj_injective` |
-| Any connected pattern that embeds in both the Joslyn and the Willems shapes is exactly one arrow. | <span class="badge proved">Proved</span> | Relative to the encoded presentations. Willems is a witness, not one of the eight. | [SharedPrimitive.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Category/SharedPrimitive.lean), `connected_is_single_arrow` |
-| "Nothing larger is shared." | <span class="badge false">False</span> | Fails when definitions are compared as free categories: a three-object fork embeds into all eight. | [Challenge.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Challenge.lean), `free_category_maximality_fails` |
-| Hand washing: under "wash every N contacts," a counter starting at or below N never exceeds N. | <span class="badge proved">Proved</span> | N = 3. Coarse model (hands and the rule, against surfaces and microbes). Assumes the rule is followed. | [HandWashing.lean](https://github.com/halcyonic-systems/protocols-are-systems/blob/main/lean/Protocols/HandWashing.lean), `handwashing_contamination_bounded` |
-| TCP and HTTP: two layers joined by one bond compose into an organized system. | <span class="badge proved">Proved</span> | Each layer modeled as closed. | [TCPIP.lean](https://github.com/halcyonic-systems/protocols-are-systems/blob/main/lean/Protocols/TCPIP.lean), `stack_organized` |
-| Bitcoin: a 10-minute block interval is a fixed point of the difficulty feedback law. | <span class="badge proved">Proved</span> | Idealized one-step version of the 2016-block retarget. | [Bitcoin.lean](https://github.com/halcyonic-systems/protocols-are-systems/blob/main/lean/Protocols/Bitcoin.lean), `difficulty_target_is_equilibrium` |
-| Four protocol formalisms share the hand-washing skeleton. | <span class="badge sketch">Sketch</span> | Not formalized. | [Slides]({{ '/talk/' | relative_url }}), slide 13 |
-| Nostr fits the model, and its hardness sits at a relay that keeps a copy. | <span class="badge drawn">Drawn</span> | Not formalized. | [Slides]({{ '/talk/' | relative_url }}), slide 17 |
+## Building
 
-## Pages
+```
+lake exe cache get && lake build
+```
 
-- [The core]({{ '/core/' | relative_url }}): the precise statement, with sources.
-- [Instances]({{ '/instances/' | relative_url }}): the three protocol theorems, how to read one, and how to build them.
-- [Questions]({{ '/questions/' | relative_url }}): questions from the symposium and the October 2 SIGFPT session.
-- [Talk]({{ '/talk/' | relative_url }}): the September 24, 2026 talk at Protocol Symposium 2026, which responds to the Protocol Institute's Grand Challenge 55.
+The Lean files depend on [systems-science-foundations](https://github.com/halcyonic-systems/systems-science-foundations), pinned in `lakefile.lean`. The blueprint is built with [leanblueprint](https://github.com/PatrickMassot/leanblueprint).
 
-## Open problems
+## Changelog
 
-1. Can hardness be measured across protocols, not only located?
-2. Does the shared skeleton survive a fifth formalism?
-3. Where does this model break on a protocol in real use?
-4. Blygger replaces deletion with withdrawal and makes pins irrevocable. That is designed hardness, and a next instance to model.
+- 2026-10-05. Blueprint and dependency graph. The shared arrow is stated between the parts of a definition, \\(R \to T\\), not between things.
+- 2026-10-02. Companion page for the SIGFPT session.
+- 2026-09-24. Talk at Protocol Symposium 2026.
+
+## How to cite
+
+<p style="hyphens: none">Thornton, S. (2026). <em>Protocols are systems.</em> Halcyonic Systems. <a href="https://halcyonic.systems/protocols-are-systems/">halcyonic.systems/protocols-are-systems</a></p>

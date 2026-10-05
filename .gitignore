@@ -1,6 +1,11 @@
-lean/.lake/
-.DS_Store
-vendor/
-.bundle/
 _site/
+.bundle/
+.DS_Store
 .jekyll-cache/
+.lake/
+.venv/
+blueprint/lean_decls
+blueprint/print/
+blueprint/web/
+lean/.lake/
+vendor/

@@ -1,0 +1,42 @@
+@import url("https://cdn.jsdelivr.net/gh/aaaakshat/cm-web-fonts@latest/font/Serif/cmun-serif.css");
+
+body {
+  font-family: "Computer Modern Serif", "Latin Modern Roman", Georgia, serif;
+  color: #1b1b1b;
+  background: #fdfcf9;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+header {
+  background: #fdfcf9;
+  color: #1b1b1b;
+  border-bottom: 1px solid #e4e2dd;
+  box-shadow: none;
+}
+header a, header h1, header .title { color: #1b1b1b; }
+
+nav.toc { background: #f6f4ee; border-right: 1px solid #e4e2dd; }
+nav.toc a { color: #1b1b1b; }
+
+a { color: #1b1b1b; text-decoration-color: #b9b6ae; text-underline-offset: 0.18em; }
+a:hover { color: #2b4c7e; }
+
+.theorem_thmwrapper, .definition_thmwrapper, .lemma_thmwrapper,
+.proposition_thmwrapper, .corollary_thmwrapper, .problem_thmwrapper {
+  border: none;
+  border-left: 1px solid #1b1b1b;
+  padding-left: 1rem;
+  margin: 1.4rem 0;
+  background: none;
+}
+
+.thm_header_extras, .thm_header_hidden_extras { font-size: 0.85em; }
+
+h1, h2, h3, h4, h5, header, header h1, header .title, nav.toc, .chapter_title, .section_title,
+div.legend, .legend, #Legend, h1#doc_title {
+  font-family: "Computer Modern Serif", "Latin Modern Roman", Georgia, serif;
+  font-weight: normal;
+}
+header { background: #fdfcf9 !important; }
+h1 { font-size: 1.9rem; }

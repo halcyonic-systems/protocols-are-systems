@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>Lean declaration</title>
+<style>
+body { font-family: Georgia, serif; color: #1b1b1b; background: #fdfcf9; max-width: 34rem; margin: 4rem auto; padding: 0 1.25rem; line-height: 1.5; }
+code { font-size: 0.9em; }
+a { color: #1b1b1b; }
+</style>
+</head>
+<body>
+<p id="msg">Looking up the declaration…</p>
+<script>
+const name = decodeURIComponent((location.hash.match(/^#doc\/(.+)$/) || [])[1] || "");
+fetch("decls.json").then(r => r.json()).then(decls => {
+  const url = decls[name];
+  if (url) { location.replace(url); return; }
+  document.getElementById("msg").innerHTML = name
+    ? "No source location recorded for <code>" + name + "</code>."
+    : "No declaration name given.";
+});
+</script>
+</body>
+</html>

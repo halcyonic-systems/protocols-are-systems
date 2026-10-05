@@ -1,0 +1,341 @@
+% Protocols are systems: blueprint.
+% Core results live in systems-science-foundations; the three protocol
+% instances live in this repository under Protocols/.
+
+\chapter{Systems and the floor}
+
+\begin{definition}[System]
+  \label{def:klir-system}
+  \lean{Systems.KlirSystem}
+  \leanok
+  A system is a pair $S = (T, R)$ of a set of things $T$ and a relation
+  $R \subseteq T \times T$.
+\end{definition}
+
+\begin{remark}
+  Klir, \emph{Facets of Systems Science} (2001), p.~5: ``S, T, R denote,
+  respectively, a system, a set of things distinguished within S, and a
+  relation (or, possibly, a set of relations) defined on T. Clearly, the
+  thinghood and systemhood properties of S reside in T and R, respectively.''
+  His examples on the same page admit both an ordering, which runs one way,
+  and a partition, which comes from an equivalence relation and runs both ways.
+\end{remark}
+
+\begin{definition}[Shape of a definition]
+  \label{def:klir-shape}
+  \lean{KlirPosition, KlirArrow, KlirShape}
+  \leanok
+  \uses{def:klir-system}
+  The shape $\IKlir$ has two objects, the relation and the things, and one
+  generating arrow
+  \[
+    R \longrightarrow T,
+  \]
+  read ``$R$ is defined over $T$''. The arrow joins the parts of the
+  definition, not two things.
+\end{definition}
+
+\begin{definition}[Kernel]
+  \label{def:kernel}
+  \lean{Systems.Kernel}
+  \leanok
+  \uses{def:klir-system, def:klir-shape}
+  A kernel is a system $(T, R)$ together with the constraint that every pair
+  in $R$ lies in $T$. The constraint is the arrow of
+  Definition~\ref{def:klir-shape} at the level of data.
+\end{definition}
+
+\begin{theorem}[The arrow is in every definition]
+  \label{thm:existence}
+  \lean{klirToBunge_obj_injective, klirToMobus_obj_injective,
+    klirToMyers_obj_injective, klirToWymore_obj_injective,
+    klirToMesarovic_obj_injective, klirToJoslyn_obj_injective,
+    klirToSpivak_obj_injective}
+  \leanok
+  \uses{def:klir-shape}
+  For each of the definitions of Bunge, Mobus, Myers, Wymore, Mesarovi\'c,
+  Joslyn, and Spivak, there is a functor from $\IKlir$ to that definition's
+  shape that is injective on objects. With Klir's own, the arrow sits inside
+  all eight.
+\end{theorem}
+
+\begin{proof}
+  \leanok
+  Each functor is given by a choice of positions in the target shape.
+  Faithfulness is automatic because $\IKlir$ is thin, so the content is
+  injectivity on objects.
+\end{proof}
+
+\begin{lemma}[No two arrows in a row]
+  \label{lem:no-two-chain}
+  \lean{SharedPrimitive.no_two_chain}
+  \leanok
+  \uses{def:klir-shape}
+  No quiver that embeds in the Willems shape contains a path of two arrows.
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  The Willems shape has no composable pair of arrows.
+\end{proof}
+
+\begin{theorem}[Only one shared arrow]
+  \label{thm:single-arrow}
+  \lean{SharedPrimitive.connected_is_single_arrow}
+  \leanok
+  \uses{def:klir-shape, lem:no-two-chain}
+  Let $V$ be a connected quiver that embeds in both the Joslyn and the
+  Willems shapes, and let $e : x \to y$ be an edge of $V$. Then $x \neq y$,
+  $V = \{x, y\}$, and every edge of $V$ runs from $x$ to $y$.
+\end{theorem}
+
+\begin{proof}
+  \leanok
+  Joslyn's shape forbids two arrows leaving one object, and Willems's forbids
+  two arrows entering one object and any two arrows in a row
+  (Lemma~\ref{lem:no-two-chain}). A connected quiver satisfying all three
+  has one edge.
+\end{proof}
+
+\begin{remark}
+  The result is relative to the encoded presentations. Willems serves as a
+  witness and is not one of the eight. Among things, a relation may run both
+  ways. Among the parts of a definition, the shared floor is one arrow.
+\end{remark}
+
+\begin{theorem}[Nothing larger is shared, refuted]
+  \label{thm:maximality-fails}
+  \lean{SharedPrimitive.free_category_maximality_fails}
+  \leanok
+  \uses{def:klir-shape}
+  Compared as free categories, the three-object fork embeds injectively on
+  objects and faithfully into all eight shapes. So the claim that nothing
+  larger than one arrow is shared is false at that level.
+\end{theorem}
+
+\begin{proof}
+  \leanok
+  In a free category every path is a morphism, and the fork enters through
+  composite paths that no definition asserts.
+\end{proof}
+
+\chapter{What the floor can and cannot carry}
+
+\begin{theorem}[Views are generated from the kernel]
+  \label{thm:view-roundtrip}
+  \lean{Systems.Kernel.toBunge_toKlir, Systems.Kernel.toMobus_toKlir}
+  \leanok
+  \uses{def:kernel}
+  A kernel with at least one bonded pair of distinct things generates a Bunge
+  system, and a kernel in which nothing is related to itself generates a Mobus
+  system. Each generated system projects back to the same kernel.
+\end{theorem}
+
+\begin{proof}
+  \leanok
+  The elaboration slots are filled with minimal witnesses: empty environment,
+  no external flows, trivial boundary, history, and timescale. The relation
+  passes through unchanged.
+\end{proof}
+
+\begin{theorem}[The generated energy view is static]
+  \label{thm:spivak-static}
+  \lean{Systems.Kernel.toSpivak_static}
+  \leanok
+  \uses{def:kernel}
+  The Spivak system generated from any kernel is static. Motion needs value
+  data from outside the kernel.
+\end{theorem}
+
+\begin{proof}
+  \leanok
+  The generated value type is trivial, so the potential distinguishes no
+  states and the step leaves every state fixed.
+\end{proof}
+
+\begin{theorem}[A one-way relation has no Rosen view]
+  \label{thm:rosen-no-view}
+  \lean{Systems.rosen_no_view_of_asymmetric}
+  \leanok
+  \uses{def:kernel}
+  If some pair in a kernel's relation lacks its converse, no Rosen system
+  (Rosen 1978) projects to that kernel. Rosen's relation among states is
+  always symmetric.
+\end{theorem}
+
+\begin{proof}
+  \leanok
+  A Rosen system's relation is indistinguishability by observables, which is
+  symmetric.
+\end{proof}
+
+\begin{problem}[Time and environment]
+  \label{prob:time-environment}
+  \uses{thm:view-roundtrip, thm:spivak-static}
+  The kernel holds places for time and environment but leaves them empty.
+  Find which time and environment content, if any, can be generated from the
+  kernel, and state exactly what must be supplied from outside.
+\end{problem}
+
+\begin{problem}[Emergence]
+  \label{prob:emergence}
+  \uses{def:kernel}
+  Bunge, \emph{Treatise on Basic Philosophy}, vol.~4 (1979), Definitions
+  1.13 and 1.14, defines emergent properties set-theoretically. State
+  emergence over the kernel without building the emergent structure into
+  the model.
+\end{problem}
+
+\chapter{Protocols}
+
+\begin{definition}[Protocol]
+  \label{def:protocol}
+  \uses{def:klir-system}
+  A protocol is a relation $R$ over a set $T$ of roles. It exists whether or
+  not anyone takes it up. This is a working definition and is not yet
+  formalized.
+\end{definition}
+
+\begin{definition}[Protocol system]
+  \label{def:protocol-system}
+  \uses{def:protocol}
+  A protocol system is a protocol taken up by participants. Walch,
+  \emph{The Fundamentals of Protocol Systems} (2023), p.~3: ``I think of
+  protocols as oughts and of protocol systems as at least two people
+  engaging with a protocol.'' This is a working definition and is not yet
+  formalized.
+\end{definition}
+
+\begin{remark}
+  A protocol is the rules, and rules are relations. By Klir, systemhood
+  resides in the relation, so a protocol is the part of a system where
+  systemhood lives. In computing terms, a protocol is a specification and a
+  protocol system is a system running it.
+\end{remark}
+
+\begin{problem}[Formalize protocols]
+  \label{prob:formalize-protocol}
+  \uses{def:protocol, def:protocol-system, def:kernel}
+  Define a protocol as a relation over roles and a protocol system as an
+  assignment of participants to those roles, and prove that every protocol
+  system is a kernel.
+\end{problem}
+
+\chapter{Three instances}
+
+\begin{definition}[Contacts since the last wash]
+  \label{def:hw-step}
+  \lean{HandWashing.sanitizePeriod, HandWashing.contaminationStep}
+  \leanok
+  \uses{def:klir-system}
+  With $N = 3$, one contact updates the count $c \in \mathbb{N}$ by
+  \[
+    f(c) =
+    \begin{cases}
+      0 & \text{if } c + 1 \ge N, \\
+      c + 1 & \text{otherwise.}
+    \end{cases}
+  \]
+\end{definition}
+
+\begin{theorem}[Hand washing keeps contamination bounded]
+  \label{thm:hand-washing}
+  \lean{HandWashing.handwashing_contamination_bounded}
+  \leanok
+  \uses{def:hw-step}
+  For all $n, c \in \mathbb{N}$, if $c \le N$ then $f^{n}(c) \le N$.
+\end{theorem}
+
+\begin{proof}
+  \leanok
+  Induction on $n$, using that one step never exceeds $N$.
+\end{proof}
+
+\begin{remark}
+  The model is coarse: hands and the rule, against surfaces and microbes. It
+  assumes the rule is followed.
+\end{remark}
+
+\begin{definition}[Organized]
+  \label{def:organized}
+  \lean{Systems.IsOrganized, Systems.ConcreteSystem.compose}
+  \leanok
+  \uses{def:klir-system}
+  A set $S$ is organized when $\exists\, a, b \in S$ with $a \neq b$ and
+  $\Bonded(a, b)$. Two systems with disjoint compositions and at least one
+  bond between them compose by union.
+\end{definition}
+
+\begin{theorem}[The TCP and HTTP stack is organized]
+  \label{thm:tcp-http}
+  \lean{TCPIP.stack_organized}
+  \leanok
+  \uses{def:organized}
+  $\Org(C_{\mathrm{HTTP}} \cup C_{\mathrm{TCP}})$, where the bond is the HTTP
+  client handing data to the TCP sender.
+\end{theorem}
+
+\begin{proof}
+  \leanok
+  Composition of two systems with a cross bond is organized.
+\end{proof}
+
+\begin{remark}
+  Each layer is modeled as closed, with no network environment. This is
+  composition of two systems, not composition of arrows.
+\end{remark}
+
+\begin{definition}[Difficulty retarget as a homeostat]
+  \label{def:homeostat}
+  \lean{Systems.Homeostat, Systems.Homeostat.feedbackLaw, Bitcoin.difficultyHomeostat}
+  \leanok
+  The state is the inter-block time $s \in \mathbb{Z}$ in minutes, with set
+  point $10$. The feedback law is
+  \[
+    \varphi(s) = s - (s - 10).
+  \]
+\end{definition}
+
+\begin{theorem}[The ten-minute target is a fixed point]
+  \label{thm:bitcoin}
+  \lean{Bitcoin.difficulty_target_is_equilibrium}
+  \leanok
+  \uses{def:homeostat}
+  $\varphi(10) = 10$.
+\end{theorem}
+
+\begin{proof}
+  \leanok
+  At the set point the error is zero and the correction leaves the state
+  unchanged.
+\end{proof}
+
+\begin{remark}
+  This is an idealized one-step model of the 2016-block retarget. As written,
+  $\varphi$ returns $10$ from any state, so the result concerns the
+  homeostat's structure, not Bitcoin's dynamics. The real rule adjusts
+  difficulty multiplicatively over a 2016-block window.
+\end{remark}
+
+\chapter{Open problems}
+
+\begin{problem}[Measuring hardness]
+  \label{prob:hardness}
+  Hardness can be located in a protocol by drawing its dependencies. Find a
+  measure of hardness that compares protocols of different kinds.
+\end{problem}
+
+\begin{problem}[A fifth formalism]
+  \label{prob:fifth-formalism}
+  \uses{thm:single-arrow}
+  State machines, process calculi, temporal logics, and Petri nets can be
+  drawn over a common skeleton. Encode a fifth formalism and test whether the
+  skeleton survives.
+\end{problem}
+
+\begin{problem}[Designed hardness]
+  \label{prob:blygger}
+  \uses{def:protocol}
+  Blygger replaces deletion with withdrawal and makes pins irrevocable. Model
+  it as an instance and locate its hardness.
+\end{problem}

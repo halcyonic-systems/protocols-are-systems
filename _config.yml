@@ -1,5 +1,5 @@
 title: Protocols are systems
-description: What a protocol is, stated over formal definitions of system, with the proofs in Lean.
+description: A protocol is a relation over roles, so a protocol is where a system's systemhood lives. Blueprint and Lean proofs.
 url: https://halcyonic.systems
 baseurl: /protocols-are-systems
 permalink: pretty
@@ -10,9 +10,17 @@ kramdown:
 exclude:
   - README.md
   - LICENSE
-  - lean
   - Gemfile
   - Gemfile.lock
   - vendor
   - .bundle
   - .jekyll-cache
+  - .venv
+  - .lake
+  - blueprint
+  - scripts
+  - Protocols
+  - Protocols.lean
+  - lakefile.lean
+  - lake-manifest.json
+  - lean-toolchain

@@ -12,13 +12,13 @@ From the symposium talk (September 24, 2026) and the SIGFPT session (October 2, 
 
 > Yes. Rules are relations, and in Klir's definition the relation is where systemhood resides. A protocol defined over its participants forms a system.
 
-See [The core]({{ '/core/' | relative_url }}#protocols). A protocol is a relation defined over a set of roles. Actual participants taking it up form what Walch calls a protocol system.
+See [Chapter 3 of the blueprint]({{ '/blueprint/sect0003.html' | relative_url }}#def:protocol). A protocol is a relation defined over a set of roles. Actual participants taking it up form what Walch calls a protocol system.
 
 ### Isn't Klir's relation more fundamental than a dependency?
 
 > It is, and the shared arrow already says so. The arrow is not inside the relation. It runs from the relation to the things it is defined over.
 
-Klir's relation may be directed, like an ordering, or symmetric, like a partition. The arrow every definition shares is one level up: a relation cannot be stated without its things. That arrow is the shape of Klir's own definition, and it is the shape that embeds into all eight. See [The core]({{ '/core/' | relative_url }}).
+Klir's relation may be directed, like an ordering, or symmetric, like a partition. The arrow every definition shares is one level up: a relation cannot be stated without its things. That arrow is the shape of Klir's own definition, and it is the shape that embeds into all eight. See [Chapter 1 of the blueprint]({{ '/blueprint/sect0001.html' | relative_url }}#def:klir-shape).
 
 ### Can arrows go both ways, directly or through something in between?
 
@@ -79,7 +79,22 @@ Read as temporal links, two-way arrows raise hard questions of causality and sim
 
 > Read [Challenge.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Challenge.lean). It states every claim without the proofs.
 
-Each headline claim appears there with its full type, so a reader can check the result without reading the proofs. For learning Lean: [Mathematics in Lean](https://leanprover-community.github.io/mathematics_in_lean/). The [Instances]({{ '/instances/' | relative_url }}) page walks through reading one theorem.
+Each headline claim appears there with its full type, so a reader can check the result without reading the proofs. For learning Lean: [Mathematics in Lean](https://leanprover-community.github.io/mathematics_in_lean/). Reading one statement, the hand-washing theorem:
+
+```lean
+theorem handwashing_contamination_bounded (n c : ℕ)
+    (hsafe : c ≤ sanitizePeriod) :
+    contaminationStep^[n] c ≤ sanitizePeriod
+```
+
+| Piece | Meaning |
+|---|---|
+| `(n c : ℕ)` | for any whole numbers \\(n\\), the steps taken, and \\(c\\), the starting count |
+| `(hsafe : c ≤ sanitizePeriod)` | assumption: \\(c \le N\\) |
+| `contaminationStep^[n] c` | \\(f^{n}(c)\\), one step applied \\(n\\) times |
+| `≤ sanitizePeriod` | conclusion: \\(\le N\\) |
+
+Lean rejects the file unless the proof that follows checks every step.
 
 ### Pointers from the sessions, not yet engaged
 
