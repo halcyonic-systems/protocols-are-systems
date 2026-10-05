@@ -13,3 +13,6 @@ exclude:
   - lean
   - Gemfile
   - Gemfile.lock
+  - vendor
+  - .bundle
+  - .jekyll-cache

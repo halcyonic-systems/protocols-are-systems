@@ -1,2 +1,6 @@
 lean/.lake/
 .DS_Store
+vendor/
+.bundle/
+_site/
+.jekyll-cache/
