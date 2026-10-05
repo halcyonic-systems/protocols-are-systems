@@ -1,0 +1,9 @@
+# Protocols are systems
+
+> What a protocol is, stated over formal definitions of system, with the proofs in Lean. Each page is a markdown file in https://github.com/halcyonic-systems/protocols-are-systems.
+
+- [The core](https://halcyonic.systems/protocols-are-systems/core/): a system's relation is defined over its things, and a protocol is the rules, where systemhood lives. Sources: Klir 2001 p. 5, Walch 2023 p. 3, systems-science-foundations.
+- [Instances](https://halcyonic.systems/protocols-are-systems/instances/): three protocols formalized in Lean (hand washing, TCP and HTTP, Bitcoin), one theorem each, with model limits.
+- [Questions](https://halcyonic.systems/protocols-are-systems/questions/): questions from Protocol Symposium 2026 and the October 2, 2026 SIGFPT session, each with a one-line answer.
+- [Talk](https://halcyonic.systems/protocols-are-systems/talk/): slides from the September 24, 2026 talk.
+- [Lean sources](https://github.com/halcyonic-systems/protocols-are-systems/tree/main/lean)

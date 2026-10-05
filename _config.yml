@@ -1,0 +1,15 @@
+title: Protocols are systems
+description: What a protocol is, stated over formal definitions of system, with the proofs in Lean.
+url: https://halcyonic.systems
+baseurl: /protocols-are-systems
+permalink: pretty
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+exclude:
+  - README.md
+  - LICENSE
+  - lean
+  - Gemfile
+  - Gemfile.lock
