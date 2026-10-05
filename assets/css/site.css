@@ -97,3 +97,53 @@ figcaption { font-size: 0.85rem; color: var(--muted); }
   color: var(--muted);
 }
 .site-footer a { color: var(--muted); }
+
+/* math boxes */
+.box {
+  margin: 1.4rem 0;
+  padding: 0.9rem 1.1rem 0.6rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--muted);
+  border-radius: 8px;
+}
+.box > :first-child { margin-top: 0; }
+.box-label {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 0.4rem;
+}
+.box.definition { border-left-color: var(--indigo); }
+.box.definition .box-label { color: var(--indigo); }
+.box.theorem { border-left-color: var(--teal); }
+.box.theorem .box-label { color: var(--teal); }
+.box.refuted { border-left-color: #be185d; }
+.box.refuted .box-label { color: #be185d; }
+.box.remark { border-left-color: #b45309; }
+.box.remark .box-label { color: #b45309; }
+.box.source { border-left-color: var(--muted); font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.15rem; }
+.box.source .box-label { font-family: "JetBrains Mono", ui-monospace, monospace; }
+.box details { margin: 0.4rem 0 0.2rem; }
+.box pre { background: #fff; }
+.in-words { color: var(--muted); font-size: 0.95rem; }
+.katex-display { margin: 0.8rem 0; overflow-x: auto; overflow-y: hidden; }
+
+.badge {
+  display: inline-block;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.7rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  white-space: nowrap;
+}
+.badge.proved { color: var(--teal); }
+.badge.false { color: #be185d; }
+.badge.sketch { color: #b45309; }
+.badge.drawn { color: var(--muted); }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0.8rem; margin: 1.2rem 0; }
+.cards .box { margin: 0; }

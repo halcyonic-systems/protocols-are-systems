@@ -1,73 +1,162 @@
 ---
 layout: default
 title: The core
-description: The precise statement. A system's relation is defined over its things, and a protocol is the rules, where systemhood lives.
+description: A system's relation is defined over its things. A protocol is the rules, so it is where systemhood lives.
 ---
 
 # The core
 
-> A system's relation is defined over its things. A protocol is the rules, so a protocol is where a system's systemhood lives.
+<div class="box definition" markdown="1">
+<p class="box-label">Definition 1 · System (Klir 2001, eq. 1.1)</p>
 
-<figure>
-<svg viewBox="0 0 360 100" role="img" aria-label="relation, arrow, things, labeled is defined over">
-  <circle cx="60" cy="40" r="9" fill="#f0f4f8" stroke="#6366f1" stroke-width="3"/>
-  <circle cx="300" cy="40" r="9" fill="#f0f4f8" stroke="#6366f1" stroke-width="3"/>
-  <line x1="73" y1="40" x2="277" y2="40" stroke="#6366f1" stroke-width="2.5"/>
-  <polygon points="277,33 289,40 277,47" fill="#6366f1"/>
-  <text x="180" y="28" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#1e293b">is defined over</text>
-  <text x="60" y="80" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#1e293b">relation (R)</text>
-  <text x="300" y="80" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#1e293b">things (T)</text>
-</svg>
-<figcaption>The shape of Klir's definition S = (T, R), as encoded in <a href="https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Category/ShapeKlir.lean">ShapeKlir.lean</a>.</figcaption>
-</figure>
+$$
+S = (T, R), \qquad R \subseteq T \times T
+$$
 
-## The arrow runs between the parts of a definition
+\\(T\\) is a set of things. \\(R\\) is a relation on \\(T\\).
+</div>
 
-Klir defines a system as S = (T, R), a set of things and a relation on them. The arrow in the figure does not connect two things. It connects the two parts of the definition: the relation depends on the things, because the relation is defined over them.
+A relation on \\(T\\) is a set of pairs drawn from \\(T\\). It cannot be stated without \\(T\\). That dependence is the arrow every definition shares.
 
-In set theory, a relation on T is a subset of T × T, a set of pairs of things. It cannot be stated without saying which T it is on. In graph theory, an edge is a pair of vertices. No vertices, no edges.
+<div class="box definition" markdown="1">
+<p class="box-label">Definition 2 · The shape of Klir's definition</p>
 
-The dependence concerns what a relation is defined over, not how many things exist. The empty set carries a relation too, the empty one.
+$$
+\mathcal{I}_{\mathrm{Klir}} : \qquad R \xrightarrow{\ \text{is defined over}\ } T
+$$
 
-## Klir's own words
+Two objects, one arrow. The arrow joins the two **parts of the definition**, not two things.
+</div>
 
-From *Facets of Systems Science* (2001), page 5:
+<details markdown="1">
+<summary>In Lean (ShapeKlir.lean)</summary>
 
-> S = (T, R), (1.1) where S, T, R denote, respectively, a system, a set of things distinguished within S, and a relation (or, possibly, a set of relations) defined on T. Clearly, the thinghood and systemhood properties of S reside in T and R, respectively.
+```lean
+inductive KlirPosition
+  | things
+  | relation
 
-The relation is what makes a set of things a system. Klir's examples on the same page show that the relation can take either form:
+inductive KlirArrow : KlirPosition → KlirPosition → Type
+  | relation_on_things : KlirArrow .relation .things
+```
 
-- Ordering books by author gives a system, "since any ordering of a set is a relation defined on the set." An ordering runs one way.
-- Partitioning books by subject gives a system, "since every partition of a set emerges from a particular equivalence relation defined on the set." An equivalence runs both ways.
+Source: [ShapeKlir.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Category/ShapeKlir.lean)
+</details>
 
-So the relation among things may be directed or symmetric. The arrow that every definition shares sits one level up, between the relation and the things.
+<div class="box remark" markdown="1">
+<p class="box-label">Remark · two levels</p>
+
+Among things, \\(R\\) can run either way. Among the parts of the definition, there is one arrow, \\(R \to T\\). The dependence concerns what \\(R\\) is defined over, not how many things exist: \\(\varnothing \subseteq T \times T\\) is a relation too.
+</div>
+
+<div class="box source" markdown="1">
+<p class="box-label">Source · Klir, Facets of Systems Science (2001), p. 5</p>
+
+"S, T, R denote, respectively, a system, a set of things distinguished within S, and a relation (or, possibly, a set of relations) defined on T. Clearly, the thinghood and systemhood properties of S reside in T and R, respectively."
+</div>
+
+Klir's examples on the same page admit both kinds of relation:
+
+| Klir's example | Relation | Direction |
+|---|---|---|
+| Books ordered by author | an ordering on \\(T\\) | one way |
+| Books partitioned by subject | an equivalence relation on \\(T\\) | both ways: \\(aRb \Rightarrow bRa\\) |
 
 ## Protocols
 
-A protocol is the rules. Rules are relations, so a protocol is the part of a system where systemhood resides.
+<div class="box definition" markdown="1">
+<p class="box-label">Working definition · Protocol (not formalized)</p>
 
-Rules are always defined over some things, but those things can be kinds or roles rather than particular participants. The TCP specification exists whether or not any host runs it, and its rules are stated over a sender, a receiver, and segments. So a protocol is a relation defined over a set of roles.
+A protocol is a relation \\(R\\) over a set of roles \\(T\\). A protocol system is a protocol taken up by participants.
 
-When actual participants take up a protocol, the result is what Walch calls a protocol system:
+$$
+\begin{aligned}
+\text{protocol} &= R \ \text{over roles } T \\
+\text{protocol system} &= \text{protocol} + \text{participants}
+\end{aligned}
+$$
 
-> I think of protocols as oughts and of protocol systems as at least two people engaging with a protocol.
+</div>
 
-Angela Walch, *The Fundamentals of Protocol Systems* (2023), page 3. In computing terms, this is the difference between a specification and the system that runs it.
+A protocol is the rules, and rules are relations. By Klir, systemhood resides in \\(R\\), so a protocol is where systemhood lives. The TCP specification is a relation over the roles sender, receiver, and segment. It exists whether or not any host runs it.
+
+<div class="box source" markdown="1">
+<p class="box-label">Source · Walch, The Fundamentals of Protocol Systems (2023), p. 3</p>
+
+"I think of protocols as oughts and of protocol systems as at least two people engaging with a protocol."
+</div>
 
 ## What is proved
 
-| Claim | Status | Source |
-|---|---|---|
-| Klir's shape (two parts, one arrow) embeds into each of eight definitions: Klir, Bunge, Mobus, Mesarović, Wymore, Myers, Joslyn, Spivak. Injective on objects. | Proved | [Challenge.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Challenge.lean), `klirTo*_obj_injective` |
-| The only dependency that every encoded definition directly asserts is one arrow. Quiver level, relative to the encodings, forced by the Joslyn and Willems shapes. | Proved | [SharedPrimitive.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Category/SharedPrimitive.lean), `connected_is_single_arrow` |
-| "Nothing larger is shared," when definitions are compared as free categories. | False | [Challenge.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Challenge.lean), `free_category_maximality_fails` |
+<div class="box theorem" markdown="1">
+<p class="box-label">Theorem 1 · Existence · <span class="badge proved">Proved</span></p>
 
-The arrow is the same for a constructivist definition (Klir), a realist one (Bunge), and a perspectivist one (Mobus). It is a fact about how each definition is built, not about whether systems exist apart from an observer.
+For each of eight definitions \\(j\\) (Klir, Bunge, Mobus, Mesarović, Wymore, Myers, Joslyn, Spivak), there is an embedding
+
+$$
+F_j : \mathcal{I}_{\mathrm{Klir}} \longrightarrow \mathcal{I}_j \qquad \text{injective on objects.}
+$$
+
+<p class="in-words">The arrow \(R \to T\) sits inside every one of the eight.</p>
+
+<details markdown="1">
+<summary>In Lean (Challenge.lean)</summary>
+
+```lean
+theorem klirToBunge_obj_injective : Function.Injective klirToBungePre.obj
+-- likewise for Mobus, Myers, Wymore, Mesarovic, Joslyn, Spivak, Willems
+```
+
+Source: [Challenge.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Challenge.lean)
+</details>
+</div>
+
+<div class="box theorem" markdown="1">
+<p class="box-label">Theorem 2 · Only one shared arrow · <span class="badge proved">Proved</span></p>
+
+Let \\(V\\) be a connected quiver that embeds in both the Joslyn and the Willems shapes, with an edge \\(e : x \to y\\). Then
+
+$$
+x \neq y, \qquad V = \{x, y\}, \qquad \text{every edge of } V \text{ is } x \to y.
+$$
+
+<p class="in-words">The only dependency every encoded definition directly asserts is one arrow. Relative to the encodings. Willems is a witness, not one of the eight.</p>
+
+<details markdown="1">
+<summary>In Lean (Challenge.lean)</summary>
+
+```lean
+theorem connected_is_single_arrow {V : Type*} [Quiver V]
+    (eJ : SharedPrimitive.QuiverEmbedding V JoslynPosition)
+    (eW : SharedPrimitive.QuiverEmbedding V WillemsPosition)
+    (conn : ∀ a b : V, SharedPrimitive.Zigzag a b) {x y : V} (e : x ⟶ y) :
+    x ≠ y ∧ (∀ w : V, w = x ∨ w = y) ∧ ∀ (u v : V) (_ : u ⟶ v), u = x ∧ v = y
+```
+
+Source: [Challenge.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Challenge.lean)
+</details>
+</div>
+
+<div class="box refuted" markdown="1">
+<p class="box-label">Refuted · Nothing larger is shared · <span class="badge false">False</span></p>
+
+Compared as free categories, the three-object fork \\(\bullet \leftarrow \bullet \rightarrow \bullet\\) embeds injectively and faithfully into all eight. So "nothing larger than one arrow is shared" fails at that level, because every path counts as a morphism.
+
+<p class="in-words">Machine-checked counterexample: <code>free_category_maximality_fails</code>, <a href="https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Challenge.lean">Challenge.lean</a>.</p>
+</div>
+
+The arrow is the same for a constructivist definition (Klir), a realist one (Bunge), and a perspectivist one (Mobus). It is a fact about how each definition is built.
 
 ## What the core cannot do
 
-It holds places for time and environment but cannot fill them. When the kernel generates a richer definition's view, the environment, flow, boundary, history, and timescale slots come out empty ([ViewGeneration.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Klir/ViewGeneration.lean)). The energy-driven view it generates is provably static (`Kernel.toSpivak_static`, [SpivakSystem.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Klir/SpivakSystem.lean)). Dynamics come from the richer definitions: Bunge's mechanism, and Mobus's transformations, history, and timescale.
+<div class="box remark" markdown="1">
+<p class="box-label">Limit · holds places, cannot fill them</p>
 
-## A correction on the record
+Generating a richer view from the core leaves environment, flows, boundary, history, and timescale empty ([ViewGeneration.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Klir/ViewGeneration.lean)). The generated energy view is provably static (`Kernel.toSpivak_static`, [SpivakSystem.lean](https://github.com/halcyonic-systems/systems-science-foundations/blob/main/Systems/Klir/SpivakSystem.lean)). Dynamics come from the richer definitions: Bunge's mechanism, and Mobus's transformations, history, and timescale.
+</div>
 
-The symposium talk illustrated the shared arrow with examples between things, such as a packet and its acknowledgment. The proved statement concerns the parts of a definition. A question at the October 2 SIGFPT session prompted this sharper statement.
+<div class="box remark" markdown="1">
+<p class="box-label">Correction on the record</p>
+
+The symposium talk drew the shared arrow between things, such as a packet and its acknowledgment. The proved statement is between the parts of a definition, \\(R \to T\\). A question at the October 2 SIGFPT session prompted this sharper statement.
+</div>
