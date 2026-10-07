@@ -35,7 +35,7 @@ jobs:
       - name: Jekyll
         run: bundle exec jekyll build
       - name: Assemble
-        run: cp -R blueprint/web _site/blueprint
+        run: rm -rf _site/blueprint && cp -R blueprint/web _site/blueprint
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
