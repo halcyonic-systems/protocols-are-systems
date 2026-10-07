@@ -21,11 +21,20 @@
   and a partition, which comes from an equivalence relation and runs both ways.
 \end{remark}
 
+\begin{definition}[Dependency]
+  \label{def:dependency}
+  \uses{def:klir-system}
+  $X$ depends on $Y$ when what $X$ is cannot be stated without $Y$. For the
+  parts of Definition~\ref{def:klir-system} this is a matter of type: $R$ is
+  a subset of $T \times T$, so the kind of object $R$ is depends on $T$. That
+  $R$ depends on $T$, and $T$ not on $R$, holds by construction.
+\end{definition}
+
 \begin{definition}[Shape of a definition]
   \label{def:klir-shape}
   \lean{KlirPosition, KlirArrow, KlirShape}
   \leanok
-  \uses{def:klir-system}
+  \uses{def:klir-system, def:dependency}
   The shape $\IKlir$ has two objects, the relation and the things, and one
   generating arrow
   \[
@@ -83,6 +92,17 @@
   Faithfulness is automatic because $\IKlir$ is thin, so the content is
   injectivity on objects.
 \end{proof}
+
+\begin{remark}[Position, not meaning]
+  The functors place the arrow by position. They do not show that it means
+  the same thing in each definition. Into Myers it lands on
+  \texttt{expose}, by which state determines output, a functional
+  dependence. Into Joslyn it lands on \texttt{efferent}, the effector acting
+  on the controlled variables, a causal one. The shape files also declare
+  different arrow conventions: Bunge, Mobus, and Myers draw from dependent to
+  depended-on, and Joslyn draws in the functional direction. See
+  Problem~\ref{prob:arrow-meaning}.
+\end{remark}
 
 \begin{lemma}[No two arrows in a row]
   \label{lem:no-two-chain}
@@ -187,6 +207,17 @@
   symmetric.
 \end{proof}
 
+\begin{problem}[What the shared arrow means]
+  \label{prob:arrow-meaning}
+  \uses{def:dependency, thm:existence, thm:single-arrow}
+  Put all eight shapes in one declared arrow convention and check whether
+  Theorems~\ref{thm:existence} and~\ref{thm:single-arrow} still hold. Then
+  take dependency in the sense of Definition~\ref{def:dependency} as the
+  weakest notion and ask whether functional dependence (Myers) and causal
+  dependence (Joslyn) refine it. If they do, the shared arrow has one
+  meaning, refined differently by each tradition.
+\end{problem}
+
 \begin{problem}[Time and environment]
   \label{prob:time-environment}
   \uses{thm:view-roundtrip, thm:spivak-static}
@@ -209,8 +240,8 @@
 \begin{definition}[Protocol]
   \label{def:protocol}
   \uses{def:klir-system}
-  A protocol is a relation $R$ over a set $T$ of roles. It exists whether or
-  not anyone takes it up. This is a working definition and is not yet
+  A protocol is a relation $R$ over a set $T$ of roles: what each role does
+  relative to the others. This is a working definition and is not yet
   formalized.
 \end{definition}
 
@@ -224,16 +255,79 @@
   working definition and is not yet formalized.
 \end{definition}
 
+\begin{definition}[Layers]
+  \label{def:layers}
+  \uses{def:protocol, def:protocol-system}
+  Let $T$ be a set of roles and $P$ a set of participants. A protocol system
+  has three layers.
+  \begin{itemize}
+    \item (L0) Definition: a relation $R \subseteq T \times T$.
+    \item (L1) Occupancy: an assignment $a \colon P \to T$ of participants
+      to roles.
+    \item (L2) Enactment: actions by participants, over time, in relation
+      to $R$.
+  \end{itemize}
+  A protocol is (L0). A protocol system is all three. With arrows from
+  dependent to depended-on,
+  \[
+    R \xrightarrow{\ \text{is defined over}\ } T
+      \xleftarrow{\ \text{occupies}\ } P .
+  \]
+  (L2) has no arrow. It is time, which the kernel holds a place for and
+  cannot fill (Theorem~\ref{thm:spivak-static}).
+\end{definition}
+
 \begin{remark}
-  A protocol is the rules, and rules are relations. By Klir, systemhood
-  resides in the relation, so a protocol is the part of a system where
-  systemhood lives. In computing terms, a protocol is a specification and a
-  protocol system is a system running it.
+  Three definitions of protocol, read by layer. Walch (2023): ``rules
+  created by humans that shape the behavior of groups of people'' (p.~4) at
+  (L0), ``at least two people'' at (L1), and ``taking actions in relation
+  to'' the protocol at (L2) (p.~5). Rao, Beiko, Ryan, Stark, Van Epps, and
+  Aue, \emph{The Unreasonable Sufficiency of Protocols} (2023), p.~3: a
+  ``codified set of behaviors'' at (L0) that, ``when adopted by a sufficient
+  number of participants'' (L1), ``reliably leads to good-enough outcomes for
+  all'' (L2). Tay, \emph{A Phenomenology of Protocols} (2023), p.~3:
+  ``rules or procedures'' at (L0), with participants and protocols that
+  ``co-constitute reality'' (p.~10) at (L2). Every source puts the protocol
+  at (L0). Only Walch names the protocol system as a separate thing.
 \end{remark}
+
+\begin{problem}[Unadopted protocols]
+  \label{prob:unadopted}
+  \uses{def:layers}
+  Does a protocol exist before anyone adopts it? Rao et al.\ (p.~7): a
+  protocol that falls short ``arguably \ldots\ wouldn't exist at all''. Yet
+  they describe IPv6 as ratified in 2017 with adoption still slow (p.~16).
+  Position: yes. $R$ needs roles, not occupants, so what fails to get
+  established is the protocol system, at (L1) and (L2).
+\end{problem}
+
+\begin{problem}[Where systemhood lives]
+  \label{prob:systemhood}
+  \uses{def:layers, def:klir-system}
+  Klir places systemhood in $R$. Walch (p.~3): ``Protocol systems are always
+  two things at once---individuals and a group.'' Position: both hold, at
+  different layers. Organization lives at (L0). The two-sidedness lives at
+  (L1): the same participants, seen through $a$, are individuals in roles,
+  and seen through $R$, are a group.
+\end{problem}
+
+\begin{problem}[Do rules make roles?]
+  \label{prob:rules-roles}
+  \uses{def:layers, def:dependency}
+  Some rules create the activity they govern: there is no checkmate before
+  the rules of chess. If a role is made by its rules, then $T$ depends on $R$
+  and the arrow reverses. Position: a role has a label, which tells the
+  position apart, and a function, what its holder does. The label belongs to
+  $T$ (Walch, p.~6: a role ``has a name that distinguishes it from other
+  roles within the system''). The function is $R$. Rules make labels into
+  roles. A piece carved as a bishop and assigned no moves is $(T,
+  \varnothing)$. ``Moves diagonally'' cannot be stated without saying what
+  moves.
+\end{problem}
 
 \begin{problem}[Formalize protocols]
   \label{prob:formalize-protocol}
-  \uses{def:protocol, def:protocol-system, def:kernel}
+  \uses{def:layers, def:kernel}
   Define a protocol as a relation over roles and a protocol system as an
   assignment of participants to those roles, and prove that every protocol
   system is a kernel.

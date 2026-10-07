@@ -15,4 +15,4 @@ Since the talk, the statement of the shared arrow has been sharpened. Slide 11 d
 Slide 4 paraphrases two of its three definitions. The sources read:
 
 - Rao, Beiko, Ryan, Stark, Van Epps, and Aue (2023), p. 3: "A protocol is a relatively simple and codified set of behaviors that, when adopted by a sufficient number of participants (human and/or artificial) in a situation, reliably leads to good-enough outcomes for all."
-- Tay (2024), p. 3: "a protocol is a set of explicit or implicit rules or procedures intended to govern, guide, or influence behaviour in a way that allows the emergence or construction of coordinated behavior."
+- Tay (2023, printed 2024), p. 3: "a protocol is a set of explicit or implicit rules or procedures intended to govern, guide, or influence behaviour in a way that allows the emergence or construction of coordinated behavior."

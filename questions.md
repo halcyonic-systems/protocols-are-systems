@@ -1,24 +1,42 @@
 ---
 layout: default
 title: Questions
-description: Questions from Protocol Symposium 2026 and the October 2 SIGFPT session, with short answers and sources.
+description: Questions from Protocol Symposium 2026, the October 2 SIGFPT session, and replies to the note, with short answers and sources.
 ---
 
 # Questions
 
-From the symposium talk (September 24, 2026) and the SIGFPT session (October 2, 2026).
+From the symposium talk (September 24, 2026), the SIGFPT session (October 2, 2026), and replies to the [note]({{ '/relation-and-arrow.pdf' | relative_url }}) (October 7, 2026).
 
 ### Is a protocol just the rules?
 
 > Yes. Rules are relations, and in Klir's definition the relation is where systemhood resides. A protocol defined over its participants forms a system.
 
-See [Chapter 3 of the blueprint]({{ '/blueprint/sect0003.html' | relative_url }}#def:protocol). A protocol is a relation defined over a set of roles. Actual participants taking it up form what Walch calls a protocol system.
+See [Chapter 3 of the blueprint]({{ '/blueprint/sect0003.html' | relative_url }}#def:protocol). A protocol is a relation defined over a set of roles. Participants assigned to those roles, acting over time, form what Walch calls a protocol system.
 
 ### Isn't Klir's relation more fundamental than a dependency?
 
 > It is, and the shared arrow already says so. The arrow is not inside the relation. It runs from the relation to the things it is defined over.
 
-Klir's relation may be directed, like an ordering, or symmetric, like a partition. The arrow every definition shares is one level up: a relation cannot be stated without its things. That arrow is the shape of Klir's own definition, and it is the shape that embeds into all eight. See [Chapter 1 of the blueprint]({{ '/blueprint/sect0001.html' | relative_url }}#def:klir-shape).
+Klir's relation may be directed, like an ordering, or symmetric, like a partition. The arrow every definition shares is one level up: a relation cannot be stated without its things. That arrow is the shape of Klir's own definition, and it is the shape that embeds, by position, into all eight. See [Chapter 1 of the blueprint]({{ '/blueprint/sect0001.html' | relative_url }}#def:klir-shape).
+
+### Isn't that dependency true by construction?
+
+> Yes. It is not a result. It is what Klir's definition says when read aloud.
+
+\(R\) is a subset of \(T \times T\), so the kind of object \(R\) is depends on \(T\). That is the definition of dependency used here ([Chapter 1]({{ '/blueprint/sect0001.html' | relative_url }}#def:dependency)). The results are elsewhere: the arrow sits in all eight definitions, and at the level of asserted arrows nothing larger is shared.
+
+### Shouldn't Klir's shape have two arrows, one for each end of a pair?
+
+> For the data, yes. The one-arrow shape records dependency, and the two-arrow shape is not shared.
+
+Each element of \(R\) is a pair with a first and a second thing, so \(R\) maps to \(T\) twice, \(R \rightrightarrows T\). Read as a schema for data, that is the shape of a graph. Collapsing both arrows to one forgets how \(R\) refers to \(T\) and keeps only that it does. The two-arrow shape does not fit every definition: Myers's shape has at most one arrow between any two positions.
+
+### Is "dependency" the same thing in every tradition?
+
+> Not shown. The embeddings place the arrow by position, not by meaning.
+
+Into Myers the arrow lands on the map by which state determines output, a functional dependence. Into Joslyn it lands on the effector acting on the controlled variables, a causal one. The shape files also declare different arrow conventions. Putting all eight in one convention, and asking whether functional and causal dependence refine the weakest notion, is an [open problem]({{ '/blueprint/sect0002.html' | relative_url }}#prob:arrow-meaning).
 
 ### Can arrows go both ways, directly or through something in between?
 
