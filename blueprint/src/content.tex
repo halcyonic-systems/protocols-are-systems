@@ -35,6 +35,24 @@
   definition, not two things.
 \end{definition}
 
+\begin{remark}[Data and dependency]
+  Klir's data form a graph. Each element of $R$ is a pair with a first and
+  a second thing, so $R$ maps to $T$ twice, $R \rightrightarrows T$, and
+  read as a schema for data, that two-arrow shape is the shape of graphs.
+  The one-arrow shape is not a schema for data. It records dependency:
+  collapsing both arrows to one forgets \emph{how} $R$ refers to $T$ and
+  keeps only \emph{that} it does.
+  \[
+    \underbrace{R \rightrightarrows T}_{\text{data}}
+    \quad\rightsquigarrow\quad
+    \underbrace{R \longrightarrow T}_{\text{dependency}}
+  \]
+  The comparison across definitions takes place at the dependency level.
+  The two-arrow shape is not shared: the Myers shape has at most one arrow
+  between any two positions, so two parallel arrows have nowhere to go.
+  The collapse is an explanation and is not formalized.
+\end{remark}
+
 \begin{definition}[Kernel]
   \label{def:kernel}
   \lean{Systems.Kernel}
