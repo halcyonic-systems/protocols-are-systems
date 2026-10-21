@@ -10,3 +10,8 @@ blueprint/web/
 lean/.lake/
 vendor/
 blueprint/src/*.paux
+note/*.aux
+note/*.log
+note/*.out
+note/*.fls
+note/*.fdb_latexmk

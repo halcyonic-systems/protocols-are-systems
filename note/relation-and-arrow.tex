@@ -1,0 +1,217 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{tikz-cd}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\usepackage[compact]{titlesec}
+\titlespacing*{\section}{0pt}{1.1em}{0.5em}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{observation}[theorem]{Observation}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.4em}
+
+\begin{document}
+
+\begin{center}
+{\large\bfseries Relations, components, and the shared arrow}\\[0.6em]
+Claude (Anthropic)\\
+{\small prompted and framed by Shingai Thornton}\\[0.3em]
+{\small October 2026, revised October 7}
+\end{center}
+
+\vspace{0.4em}
+\begin{quote}\small
+\textbf{Question} (SIGFPT session, October 2, 2026). What is the difference between a relation in Klir's sense and the dependency at the core? A relation is a tuple or an undirected edge. A dependency is a directed arrow, so it carries more structure. Why, then, is Klir's relation not the more fundamental notion?
+\end{quote}
+
+\textit{Context.} The talk and its companion page described the core as one thing depending on another. This note sharpens that: the dependency holds between the \emph{parts of a definition}, not between its components. Section~4 then sets three recent definitions of protocol against the result.
+
+\section*{1. Setting}
+
+\begin{definition}[Klir]\label{def:system}
+A system is a pair of a set of components and a relation on them:
+\[
+  S = (T, R), \qquad R \subseteq T \times T .
+\]
+\end{definition}
+
+\begin{definition}\label{def:parts}
+The \emph{parts} of Definition~\ref{def:system} are $R$ and $T$. They are linked, written $R \,\text{--}\, T$: neither is stated without saying how it attaches to the other.
+\end{definition}
+
+\begin{definition}[Dependency]\label{def:dep}
+$X$ \emph{depends on} $Y$ when what $X$ is cannot be stated without $Y$. For the parts of Definition~\ref{def:system} this is a matter of type: $R$ is a subset of $T \times T$, so the kind of object $R$ is depends on $T$.
+\end{definition}
+
+\begin{remark}[Two levels]
+Klir's data form a graph. Each element of $R$ is a pair with a first and a second thing, so $R$ maps to $T$ twice. The link of Definition~\ref{def:parts} forgets \emph{how} $R$ refers to $T$ and keeps only \emph{that} it does:
+\[
+\begin{array}{ccc}
+  R \rightrightarrows T & \overset{\text{collapse}}{\rightsquigarrow} & R \longrightarrow T \\[0.2em]
+  \text{\small data} & & \text{\small dependency}
+\end{array}
+\]
+The comparison across definitions takes place at the dependency level. The two-arrow shape is not shared: Myers's shape has at most one arrow between any two positions. The collapse is drawn here as explanation, not formalized.
+\end{remark}
+
+\section*{2. Premises}
+
+These are commitments drawn from the sources, not theorems.
+
+\begin{enumerate}[label=\textbf{(P\arabic*)}, leftmargin=2.6em, itemsep=0.35em]
+  \item \emph{Components may exist without relations.} Formally, $(T, \varnothing)$ is admissible.\\
+  {\small Klir: an unorganized collection of books ``is not a system, only a set'' \cite[p.~5]{klir}.}
+  \item \emph{Relations cannot exist without components.} Formally, $R$ is typed by $T$: $R \subseteq T \times T$ cannot be stated until $T$ is given.\\
+  {\small Bunge: ``listing a system's components must precede any question regarding its environment and its structure'' and ``no components, no bonds among them'' \cite[pp.~43--44]{bunge}.}
+  \item \emph{Systemhood resides in the relation.}\\
+  {\small Klir: ``the thinghood and systemhood properties of S reside in T and R, respectively'' \cite[p.~5]{klir}.}
+\end{enumerate}
+
+\section*{3. Result}
+
+\begin{observation}[Asymmetry]\label{lem:asym}
+$R$ depends on $T$, and $T$ does not depend on $R$.
+\end{observation}
+This holds by construction, not by proof. The first clause is Definition~\ref{def:dep} applied to $R \subseteq T \times T$, which is (P2). The second is (P1).
+
+\begin{remark}
+Among components, a relation need not be directed: $R$ may be any subset of $T \times T$. Klir admits both orderings and equivalences \cite[p.~5]{klir}, so the question is right at this level. The argument also holds whatever one's stance: whether relations are drawn by an observer (Klir) or exist in the world (Bunge), a relation cannot be stated without its components.
+\end{remark}
+
+\begin{proposition}[{\cite[Thm.~4]{pg}}, cited]\label{prop:pg}
+Finite simple directed graphs correspond exactly to undirected graphs in which each vertex $v$ is split into $v$ and $v'$ joined by an edge, an arrow $u \to v$ becoming the edge $\{u, v'\}$. Direction is a labeling of an undirected graph, and reversing every arrow is the relabeling $v \leftrightarrow v'$.
+\end{proposition}
+
+Applied to the link between the parts, the two orientations become the same undirected path with mirrored labels:
+\[
+\begin{tikzcd}[column sep=small, row sep=tiny]
+  R \arrow[r] & T & \rightsquigarrow & R' \arrow[r, dash] & R \arrow[r, dash] & T' \arrow[r, dash] & T \\
+  T \arrow[r] & R & \rightsquigarrow & T' \arrow[r, dash] & T \arrow[r, dash] & R' \arrow[r, dash] & R
+\end{tikzcd}
+\]
+
+\begin{theorem}\label{thm:main}
+The structure shared by the definitions is an undirected link between $R$ and $T$, and Observation~\ref{lem:asym} fixes its orientation:
+\[
+  R \xrightarrow{\ \ \text{is defined over}\ \ } T
+\]
+\end{theorem}
+\begin{proof}
+By Definition~\ref{def:parts}, $R$ and $T$ are linked. By Proposition~\ref{prop:pg}, an oriented link is an undirected link with a labeling, and the link between $R$ and $T$ admits exactly two labelings, $R \to T$ and $T \to R$. By Observation~\ref{lem:asym}, only $R$ depends on $T$, so the labeling that reads ``depends on'' is $R \to T$.
+\end{proof}
+
+\begin{corollary}[Answer]
+The relation is fundamental, and the arrow does not compete with it. The arrow is not an edge among components. It lies between the parts of the definition and says what Definition~\ref{def:system} already says: $R$ is defined over $T$.
+\end{corollary}
+
+\begin{remark}[Position, not meaning]
+The Lean embeddings place this arrow in each of the eight definitions by position. They do not show it means the same thing in each. In Myers's definition it lands on the map by which state determines output, a functional dependence. In Joslyn's it lands on the effector acting on the controlled variables, a causal one. Whether these are one notion of dependency, refined in different ways, is open.
+\end{remark}
+
+\begin{remark}[Protocols]
+By (P3), a protocol, being rules and so a relation, is the part of a system where systemhood resides. Mobus models a protocol the same way: an interface is $r = (S, \varphi)$, and ``the $\varphi$ object is called a protocol which is an algorithm for letting the flow across the boundary in an ordered fashion'' \cite[ch.~4]{mobus}.
+\end{remark}
+
+\section*{4. Protocols on the floor}
+
+Three recent definitions of protocol \cite{walch, rao, tay} agree on where a protocol sits and differ on how much else they include. Sorting what each includes gives three layers.
+
+\begin{definition}[Layers]\label{def:layers}
+Let $T$ be a set of distinguished positions (roles) and $P$ a set of participants.
+\begin{enumerate}[label=\textbf{(L\arabic*)}, start=0, leftmargin=2.6em, itemsep=0.2em]
+  \item \emph{Definition.} A relation $R \subseteq T \times T$: what each position does relative to the others.
+  \item \emph{Occupancy.} An assignment $a \colon P \to T$ of participants to positions.
+  \item \emph{Enactment.} Actions by participants, over time, in relation to $R$.
+\end{enumerate}
+A \emph{protocol} is (L0). A \emph{protocol system} is all three.
+\end{definition}
+
+Arrows run from dependent to depended-on. Read aloud: $R$ is defined over $T$; each participant occupies a position.
+\[
+  R \xrightarrow{\ \ \text{is defined over}\ \ } T \xleftarrow{\ \ \text{occupies}\ \ } P
+\]
+(L2) has no arrow here. It is time, which the shared floor holds a place for and cannot fill.
+
+\begin{center}\small
+\begin{tabular}{@{}>{\raggedright}p{2.3cm}>{\raggedright}p{3.9cm}>{\raggedright}p{3.9cm}>{\raggedright\arraybackslash}p{4.6cm}@{}}
+\toprule
+ & (L0) Definition & (L1) Occupancy & (L2) Enactment \\
+\midrule
+Klir \cite{klir} & $(T, R)$ & & \\
+Mobus \cite{mobus} & protocol $\varphi$ on an interface & & ordered flow across the boundary \\
+Walch \cite{walch} & ``rules created by humans'' (p.~4) & ``at least two people'' (p.~5) & ``taking actions in relation to'' it (p.~5) \\
+Rao et al.\ \cite{rao} & ``codified set of behaviors'' (p.~3) & ``when adopted by a sufficient number of participants'' (p.~3) & ``reliably leads to good-enough outcomes for all'' (p.~3) \\
+Tay \cite{tay} & ``rules or procedures'' (p.~3) & & participants and protocols ``co-constitute reality'' (p.~10) \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\textbf{Table 1.}\ What each source includes, by layer.\label{tab:layers}
+\end{center}
+
+\begin{remark}[Agreement]
+Every source puts the protocol at (L0), the layer where (P3) places systemhood. Only Walch names the whole, the protocol system, as a separate thing. The results in Lean concern (L0) alone. (L1) and (L2) lie past the shared floor.
+\end{remark}
+
+The sources disagree in three places, each stated below with an argued position. The third returns to the question this note began with.
+
+\begin{enumerate}[label=\textbf{Q\arabic*.}, leftmargin=2.2em, itemsep=0.75em, topsep=0.5em]
+\item \emph{Does a protocol exist before anyone adopts it?}\\
+Rao et al.\ suggest not: a protocol that falls short ``arguably \ldots\ wouldn't exist at all, either failing to get established in the first place, or failing too fast'' (p.~7). Yet they describe IPv6 as ratified in 2017, with adoption still slow (p.~16).
+
+\textit{Position.} Yes. By (P2), $R$ needs positions, not occupants. What fails to get established is the protocol system, at (L1) and (L2).
+
+\item \emph{Where does systemhood live?}\\
+By (P3), in $R$. Walch: ``Protocol systems are always two things at once---individuals and a group'' (p.~3).
+
+\textit{Position.} Both hold, at different layers. Organization lives at (L0). Walch's two-sidedness lives at (L1): the same participants, seen through $a$, are individuals in positions, and seen through $R$, are a group.
+
+\item \emph{Do rules make roles?}\\
+Some rules do not regulate an activity that already exists. They create it: there is no checkmate before the rules of chess. If a role is made by its rules, then $T$ depends on $R$, and the arrow of Theorem~\ref{thm:main} reverses. Tay: ``The narratives and perspectives set by protocols shape our roles and relationships to the world'' (p.~9).
+
+\textit{Position.} Rules make labels into roles. A role has two parts: a label that tells the position apart from the others, and a function, what its holder does. The label belongs to $T$, and Walch says as much: a role ``has a name that distinguishes it from other roles within the system'' (p.~6). The function is $R$. A rule that creates an activity is a relation from labels to functions, so it is built over $T$ and confirms $R \to T$.
+
+The premises test this. A piece carved as a bishop and assigned no moves is $(T, \varnothing)$, admissible by (P1). ``Moves diagonally'' cannot be stated without saying what moves, by (P2). That roles change as people act under $R$ belongs to (L2) and leaves (L0) as it is.
+\end{enumerate}
+
+These positions are offered for discussion. Chapter~3 of the blueprint will record replies.
+
+\section*{5. Status}
+
+\begin{center}\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+Proved in Lean (systems-science-foundations) & The shape $R \to T$ (\texttt{ShapeKlir.lean}); its injective embedding into \\
+ & eight definitions of system (\texttt{Challenge.lean}) \\
+Cited & Proposition~\ref{prop:pg} \\
+Read from sources & Table 1 \\
+Argued here, not formalized & (P1)--(P3), Observation~\ref{lem:asym}, Theorem~\ref{thm:main}, the Corollary, \\
+ & the positions on Questions 1--3 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{thebibliography}{9}\small\setlength{\itemsep}{0pt}
+\bibitem{bunge} M. Bunge, \emph{Treatise on Basic Philosophy}, vol.~4, \emph{Ontology II: A World of Systems}, Reidel, 1979.
+\bibitem{klir} G.~J. Klir, \emph{Facets of Systems Science}, 2nd ed., Kluwer, 2001.
+\bibitem{mobus} G.~E. Mobus, \emph{Systems Science: Theory, Analysis, Modeling, and Design}, Springer, 2022.
+\bibitem{pg} J.~Pardo-Guerra, V.~George, V.~Morar, J.~Roldan, G.~Silva, Extending undirected graph techniques to directed graphs via category theory, \emph{Mathematics} 12(9) (2024), 1357.
+\bibitem{rao} V.~Rao, T.~Beiko, D.~Ryan, J.~Stark, T.~Van~Epps, B.~Aue, \emph{The Unreasonable Sufficiency of Protocols}, Summer of Protocols, Ethereum Foundation, 2023.
+\bibitem{tay} J.~Tay, \emph{A Phenomenology of Protocols}, Summer of Protocols, Ethereum Foundation, 2023 (printed 2024).
+\bibitem{walch} A.~Walch, \emph{The Fundamentals of Protocol Systems}, Summer of Protocols, Ethereum Foundation, 2023.
+\end{thebibliography}
+
+\end{document}
